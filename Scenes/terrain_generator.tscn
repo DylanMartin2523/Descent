@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dstldrx55oson"]
+
+[ext_resource type="Material" uid="uid://bqmo3a1qborlv" path="res://assets/textures/Terrain/Terrain.tres" id="1_5hstu"]
+[ext_resource type="Script" uid="uid://cw2ymw46rjc68" path="res://Scripts/terrain_generation/terrain_generator.gd" id="2_e455w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5hstu"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5hstu"]
+material = SubResource("ShaderMaterial_5hstu")
+
+[sub_resource type="Gradient" id="Gradient_52xsl"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8uk7u"]
+gradient = SubResource("Gradient_52xsl")
+width = 2048
+height = 2048
+use_hdr = true
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_52xsl"]
+noise_type = 3
+frequency = 0.0007
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8uk7u"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_52xsl")
+
+[node name="TerrainGenerator" type="MeshInstance3D" unique_id=18928448]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+material_override = ExtResource("1_5hstu")
+mesh = SubResource("PlaneMesh_5hstu")
+surface_material_override/0 = ExtResource("1_5hstu")
+script = ExtResource("2_e455w")
+subdivides = 1022
+heightmap = SubResource("GradientTexture2D_8uk7u")
+height_scale = 200.0
+mesh_size = Vector2(1024, 1024)
+noise_texture = SubResource("NoiseTexture2D_8uk7u")
+metadata/_custom_type_script = "uid://cw2ymw46rjc68"
